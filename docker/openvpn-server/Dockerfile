@@ -16,7 +16,7 @@ RUN cp -r /usr/share/easy-rsa/* ${EASYRSA_DIR}/
 
 # Copy initialization and management scripts
 COPY docker/openvpn-server/scripts/init-openvpn.sh /opt/openvpn/scripts/
-COPY docker/openvpn-server/scripts/add-client`.sh /opt/openvpn/scripts/
+COPY docker/openvpn-server/scripts/add-client.sh /opt/openvpn/scripts/
 COPY docker/openvpn-server/scripts/revoke-client.sh /opt/openvpn/scripts/
 COPY docker/openvpn-server/scripts/list-clients.sh /opt/openvpn/scripts/
 COPY docker/openvpn-server/scripts/get-client.sh /opt/openvpn/scripts/
