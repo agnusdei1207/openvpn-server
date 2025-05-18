@@ -1,34 +1,34 @@
-port {{PORT}}
-proto {{PROTO}}
-dev tun
+port {{PORT}}                # 서버가 사용할 포트 (기본 1194)
+proto {{PROTO}}              # 프로토콜 (udp/tcp)
+dev tun                      # 가상 네트워크 인터페이스 타입
 
-ca ca.crt
-cert server.crt
-key server.key
-dh dh.pem
+ca ca.crt                    # 인증기관(CA) 인증서
+cert server.crt              # 서버 인증서
+key server.key               # 서버 개인키
+dh dh.pem                    # Diffie-Hellman 키 교환 파일
 
-server {{NETWORK}} {{NETMASK}}
-ifconfig-pool-persist ipp.txt
+server {{NETWORK}} {{NETMASK}}  # VPN 서브넷 설정
+ifconfig-pool-persist ipp.txt   # IP 할당 유지 파일
 
-push "redirect-gateway def1 bypass-dns"
-push "dhcp-option DNS 8.8.8.8"
-push "dhcp-option DNS 8.8.4.4"
+push "redirect-gateway def1 bypass-dns"  # 클라이언트 모든 트래픽을 VPN으로 라우팅
+push "dhcp-option DNS 8.8.8.8"           # 클라이언트에 DNS 서버 전달
+push "dhcp-option DNS 8.8.4.4"           # 보조 DNS 서버
 
-client-to-client
-client-config-dir ccd
+client-to-client             # 클라이언트 간 통신 허용
+client-config-dir ccd        # 클라이언트별 설정 디렉토리
 
-keepalive 10 120
-cipher AES-256-CBC
-user nobody
-group nogroup
-persist-key
-persist-tun
+keepalive 10 120             # 연결 유지 핑 설정(10초마다, 120초 무응답 시 재연결)
+cipher AES-256-CBC           # 암호화 방식
+user nobody                  # 권한 낮춤(보안)
+group nogroup                # 권한 낮춤(보안)
+persist-key                  # 서비스 재시작 시 키 유지
+persist-tun                  # 서비스 재시작 시 tun 유지
 
-crl-verify crl.pem
+crl-verify crl.pem           # 인증서 폐기 목록 확인
 
-status openvpn-status.log
-verb 3
-explicit-exit-notify 1
+status openvpn-status.log    # 상태 로그 파일
+verb 3                       # 로그 상세도(3=일반)
+explicit-exit-notify 1       # 정상 종료 시 알림(UDP만 해당)
 
-tls-auth ta.key 0
-key-direction 0
+tls-auth ta.key 0            # TLS 인증 키(DoS 방어)
+key-direction 0              # TLS 키 방향
