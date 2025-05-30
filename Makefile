@@ -16,3 +16,4 @@ setting-vpn:
 	scp -i test.pem ubuntu@216.47.96.34:/etc/openvpn/client1.ovpn .
 cp-vpn:
 	docker cp client1.ovpn $(DOCKER_IMAGE):/client1.ovpn
+#
