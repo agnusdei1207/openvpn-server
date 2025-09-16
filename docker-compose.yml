@@ -1,6 +1,6 @@
 services:
   openvpn:
-    image: agnusdei1207/offensive-security:latest
+    image: agnusdei1207/openvpn-server
     container_name: openvpn-server
     cap_add:
       - NET_ADMIN
